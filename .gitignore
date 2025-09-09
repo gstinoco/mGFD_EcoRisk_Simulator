@@ -170,12 +170,12 @@ wandb/
 # Large simulation data
 #data/simulations/*/*.npy
 #data/simulations/*/*.csv
-data/snapshots/*/
+#data/snapshots/*/
 data/processed/*.npz
 data/results/*.joblib
 
 # Video files (keep structure but ignore large files)
-data/videos/*.gif
+#data/videos/*.gif
 data/videos/*.mp4
 data/videos/*.avi
 data/videos/*.mov
