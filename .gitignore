@@ -133,7 +133,7 @@ dmypy.json
 # Machine Learning & Data Science
 # ===================================================================
 # Large data files
-*.npy
+#*.npy
 *.npz
 *.h5
 *.hdf5
@@ -168,8 +168,8 @@ wandb/
 # Scientific Computing & Numerical Data
 # ===================================================================
 # Large simulation data
-data/simulations/*/*.npy
-data/simulations/*/*.csv
+#data/simulations/*/*.npy
+#data/simulations/*/*.csv
 data/snapshots/*/
 data/processed/*.npz
 data/results/*.joblib

@@ -112,6 +112,16 @@ visualization:
     dpi_video: 150                      # Lower DPI for videos to speed up generation
     max_frames: 100                     # Maximum number of frames to include in videos
     frame_skip: 1                       # Skip frames to reduce video length (1 = no skip)
+
+# =============================================================================
+# OUTPUT AND EXPORT SETTINGS
+# =============================================================================
+# Configuration for data export formats and file output options
+output:
+  export_csv: true                    # Export simulation data to CSV format (in addition to NPY)
+  csv_include_history: true           # Include full temporal history in CSV (warning: creates large files)
+  save_npy: true                      # Save data in efficient NPY format (recommended)
+  compression: false                  # Compress output files (slower but smaller)
   
 # =============================================================================
 # PREDEFINED SIMULATION SCENARIOS

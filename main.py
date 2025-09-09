@@ -124,7 +124,95 @@ def apply_scenario_parameters(config, scenario_params):
     
     return config
 
-def save_simulation_results(scenario_name, concentration_history, model, times, config):
+def export_simulation_to_csv(scenario_path, export_concentration_history=False):
+    """
+    Export simulation data from NPY format to CSV format for analysis and collaboration.
+    
+    This function converts the binary NPY files to human-readable CSV format,
+    making the data accessible for analysis in Excel, R, MATLAB, and other tools.
+    
+    Args:
+        scenario_path (str): Path to the scenario directory containing NPY files
+        export_concentration_history (bool): Whether to export full temporal history
+                                           (can create very large files)
+    
+    Returns:
+        dict: Paths to created CSV files
+    """
+    csv_files = {}
+    
+    try:
+        # Load NPY data
+        final_concentration = np.load(os.path.join(scenario_path, 'final_concentration.npy'))
+        x_coords = np.load(os.path.join(scenario_path, 'x_coordinates.npy'))
+        y_coords = np.load(os.path.join(scenario_path, 'y_coordinates.npy'))
+        times = np.load(os.path.join(scenario_path, 'times.npy'))
+        
+        # Export final concentration as structured CSV
+        final_data = []
+        for i, x in enumerate(x_coords):
+            for j, y in enumerate(y_coords):
+                final_data.append({
+                    'x_coordinate': x,
+                    'y_coordinate': y,
+                    'concentration_mg_L': final_concentration[i, j],
+                    'time_final': times[-1]
+                })
+        
+        final_df = pd.DataFrame(final_data)
+        final_csv_path = os.path.join(scenario_path, 'final_concentration.csv')
+        final_df.to_csv(final_csv_path, index=False)
+        csv_files['final_concentration'] = final_csv_path
+        
+        # Export coordinates separately
+        coords_df = pd.DataFrame({
+            'x_coordinates': x_coords,
+            'y_coordinates': y_coords
+        })
+        coords_csv_path = os.path.join(scenario_path, 'coordinates.csv')
+        coords_df.to_csv(coords_csv_path, index=False)
+        csv_files['coordinates'] = coords_csv_path
+        
+        # Export times
+        times_df = pd.DataFrame({'time_seconds': times})
+        times_csv_path = os.path.join(scenario_path, 'times.csv')
+        times_df.to_csv(times_csv_path, index=False)
+        csv_files['times'] = times_csv_path
+        
+        # Optionally export concentration history (warning: can be very large)
+        if export_concentration_history:
+            try:
+                concentration_history = np.load(os.path.join(scenario_path, 'concentration_history.npy'))
+                history_data = []
+                
+                for t_idx, time_val in enumerate(times):
+                    for i, x in enumerate(x_coords):
+                        for j, y in enumerate(y_coords):
+                            history_data.append({
+                                'time_seconds': time_val,
+                                'x_coordinate': x,
+                                'y_coordinate': y,
+                                'concentration_mg_L': concentration_history[t_idx, i, j]
+                            })
+                
+                history_df = pd.DataFrame(history_data)
+                history_csv_path = os.path.join(scenario_path, 'concentration_history.csv')
+                history_df.to_csv(history_csv_path, index=False)
+                csv_files['concentration_history'] = history_csv_path
+                
+            except Exception as e:
+                print(f"Warning: Could not export concentration history: {e}")
+        
+        return csv_files
+        
+    except FileNotFoundError as e:
+        print(f"Error: Required NPY files not found in {scenario_path}: {e}")
+        return {}
+    except Exception as e:
+        print(f"Error exporting to CSV: {e}")
+        return {}
+
+def save_simulation_results(scenario_name, concentration_history, model, times, config, export_csv=False):
     """
     Save simulation results to disk.
     
@@ -134,6 +222,10 @@ def save_simulation_results(scenario_name, concentration_history, model, times, 
         model: AdvectionDiffusionModel instance
         times (np.ndarray): Time points array
         config (dict): Configuration parameters
+        export_csv (bool): Whether to also export data in CSV format
+    
+    Returns:
+        dict: Information about saved files
     """
     output_dir = f"data/simulations/{scenario_name or 'base'}"
     os.makedirs(output_dir, exist_ok=True)
@@ -147,12 +239,30 @@ def save_simulation_results(scenario_name, concentration_history, model, times, 
         'times.npy': times
     }
     
+    saved_files = {'npy_files': []}
     for filename, data in files_to_save.items():
-        np.save(os.path.join(output_dir, filename), data)
+        file_path = os.path.join(output_dir, filename)
+        np.save(file_path, data)
+        saved_files['npy_files'].append(file_path)
     
     # Save parameters
-    with open(os.path.join(output_dir, 'parameters.yaml'), 'w') as f:
+    params_path = os.path.join(output_dir, 'parameters.yaml')
+    with open(params_path, 'w') as f:
         yaml.dump(config, f, default_flow_style=False)
+    saved_files['parameters'] = params_path
+    
+    # Optionally export to CSV format
+    if export_csv:
+        print(f"Exporting {scenario_name} to CSV format...")
+        include_history = config.get('output', {}).get('csv_include_history', False)
+        csv_files = export_simulation_to_csv(output_dir, export_concentration_history=include_history)
+        saved_files['csv_files'] = csv_files
+        if csv_files:
+            print(f"CSV files created: {list(csv_files.keys())}")
+            if include_history:
+                print("⚠️  Warning: concentration_history.csv file may be very large")
+    
+    return saved_files
 
 def print_banner(title, subtitle=None, width=60):
     """
@@ -241,7 +351,8 @@ def run_single_simulation(config_path, scenario_name=None, save_results=True):
 
     # Save results if requested
     if save_results:
-        save_simulation_results(scenario_name, concentration_history, model, times, config)
+        export_csv = config.get('output', {}).get('export_csv', False)
+        save_simulation_results(scenario_name, concentration_history, model, times, config, export_csv=export_csv)
     
     return {
         'concentration_history': concentration_history,
@@ -652,6 +763,48 @@ def load_ml_results(use_fundamental_features=False):
     except Exception as e:
         print(f"Error loading ML results: {e}")
         return None
+
+def export_existing_simulations_to_csv(export_concentration_history=False):
+    """
+    Export all existing simulation results from NPY to CSV format.
+    
+    This utility function converts all previously saved NPY simulation files
+    to CSV format for analysis in external tools.
+    
+    Args:
+        export_concentration_history (bool): Whether to export full temporal history
+                                           (warning: creates very large files)
+    
+    Returns:
+        dict: Summary of exported files by scenario
+    """
+    print_banner("EXPORTING SIMULATIONS TO CSV", width=50)
+    
+    simulations_dir = 'data/simulations'
+    if not os.path.exists(simulations_dir):
+        print(f"Error: Directory {simulations_dir} not found")
+        return {}
+    
+    export_summary = {}
+    scenarios = [d for d in os.listdir(simulations_dir) if os.path.isdir(os.path.join(simulations_dir, d))]
+    
+    for scenario_name in tqdm(scenarios, desc="Exporting scenarios"):
+        scenario_path = os.path.join(simulations_dir, scenario_name)
+        
+        # Check if NPY files exist
+        required_files = ['final_concentration.npy', 'x_coordinates.npy', 'y_coordinates.npy', 'times.npy']
+        if all(os.path.exists(os.path.join(scenario_path, f)) for f in required_files):
+            csv_files = export_simulation_to_csv(scenario_path, export_concentration_history)
+            if csv_files:
+                export_summary[scenario_name] = csv_files
+                print(f"✓ Exported {scenario_name}: {len(csv_files)} CSV files")
+            else:
+                print(f"✗ Failed to export {scenario_name}")
+        else:
+            print(f"⚠ Skipping {scenario_name}: Missing NPY files")
+    
+    print(f"\nExport complete: {len(export_summary)} scenarios exported")
+    return export_summary
 
 def load_simulation_results():
     """

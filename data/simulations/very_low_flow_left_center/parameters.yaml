@@ -31,6 +31,11 @@ ml_parameters:
     n_estimators: 100
   random_state: 42
   test_size: 0.2
+output:
+  compression: false
+  csv_include_history: true
+  export_csv: true
+  save_npy: true
 physics:
   advection_velocity:
     u: 0.1
