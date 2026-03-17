@@ -1,15 +1,17 @@
-# Contaminant Transport Modeling with Machine Learning :ocean:
+# mGFD EcoRisk Simulator :ocean:
 
 <div align="center">
 
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/gstinoco/contaminant-transport-ml) [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/) [![NumPy](https://img.shields.io/badge/NumPy-1.21+-orange.svg)](https://numpy.org/) [![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.0+-green.svg)](https://scikit-learn.org/) [![Matplotlib](https://img.shields.io/badge/Matplotlib-3.5+-red.svg)](https://matplotlib.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+<img src="docs/logo/logo.png" alt="Project logo" width="680" style="margin: 20px 0;">
 
-**Advanced Computational Framework for Contaminant Transport and Ecological Risk Assessment**
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/gstinoco/mGFD_EcoRisk_Simulator) [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/) [![NumPy](https://img.shields.io/badge/NumPy-1.21+-013243.svg?logo=numpy)](https://numpy.org/) [![Pandas](https://img.shields.io/badge/Pandas-1.3+-150458.svg?logo=pandas)](https://pandas.pydata.org/) [![SciPy](https://img.shields.io/badge/SciPy-1.7+-8CAAE6.svg?logo=scipy)](https://scipy.org/) [![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.0+-F7931E.svg?logo=scikitlearn)](https://scikit-learn.org/) [![Matplotlib](https://img.shields.io/badge/Matplotlib-3.5+-11557C.svg)](https://matplotlib.org/) [![Seaborn](https://img.shields.io/badge/Seaborn-0.11+-4C72B0.svg)](https://seaborn.pydata.org/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-*Integrating numerical modeling with machine learning for environmental contamination analysis*
+**Hybrid methodology for numerical simulation and ecological risk classification**
+
+*2D advection–diffusion model + machine learning to map risk zones (Low, Medium, High)*
 
 ### :link: Quick Links
-[![:rocket: Quick Start](https://img.shields.io/badge/🚀-Quick%20Start-green)](#rocket-quick-start) [![:bar_chart: Results](https://img.shields.io/badge/📊-Results-orange)](#chart_with_upwards_trend-results-and-performance) [![:movie_camera: Visualizations](https://img.shields.io/badge/🎬-Visualizations-purple)](#movie_camera-visualizations--demos) [![:busts_in_silhouette: Team](https://img.shields.io/badge/👥-Research%20Team-blue)](#scientist-research-team)
+[![🌐 Live Demo](https://img.shields.io/badge/🌐-Live%20Demo-brightgreen)](#rocket-quick-start) [![🚀 Quick Start](https://img.shields.io/badge/🚀-Quick%20Start-green)](#rocket-quick-start) [![📦 Install](https://img.shields.io/badge/📦-Install-blue)](#package-installation--setup) [![🧮 Model](https://img.shields.io/badge/🧮-Model-purple)](#books-mathematical-model) [![🗂️ Dataset](https://img.shields.io/badge/🗂️-Dataset-blue)](#file_cabinet-dataset-structure) [![📈 Benchmarks](https://img.shields.io/badge/📈-Benchmarks-purple)](#chart_with_upwards_trend-performance-benchmarks) [![🎬 Visualizations](https://img.shields.io/badge/🎬-Visualizations-purple)](#movie_camera-visualizations) [![👥 Team](https://img.shields.io/badge/👥-Research%20Team-blue)](#scientist-research-team) [![🤝 Contribute](https://img.shields.io/badge/🤝-Contributing-orange)](#handshake-contributing) [![🏭 Partners](https://img.shields.io/badge/🏭-Industry%20Partners-0B1B3A)](#factory-industry-partners-supporting-innovation) [![🙏 Thanks](https://img.shields.io/badge/🙏-Acknowledgments-darkgreen)](#pray-acknowledgments)
 
 </div>
 
@@ -20,129 +22,117 @@
 - [Features](#sparkles-features)
 - [Installation & Setup](#package-installation--setup)
 - [Quick Start](#rocket-quick-start)
-- [Visualizations & Demos](#movie_camera-visualizations--demos)
+- [Usage Guide](#book-usage-guide)
+- [Visualizations](#movie_camera-visualizations)
+- [API Documentation](#gear-api-documentation)
+- [Data Formats](#file_cabinet-data-formats)
 - [Project Architecture](#open_file_folder-project-architecture)
-- [Programming Examples](#programming-examples)
-- [Configuration](#gear-configuration)
-- [Results and Performance](#chart_with_upwards_trend-results-and-performance)
-- [Scientific Background](#books-scientific-background)
+- [Mathematical Model](#books-mathematical-model)
+- [Dataset Structure](#file_cabinet-dataset-structure)
+- [Performance Benchmarks](#chart_with_upwards_trend-performance-benchmarks)
+- [Contributing](#handshake-contributing)
 - [Research Team](#scientist-research-team)
-- [Citation & License](#memo-citation)
+- [Industry Partners Supporting Innovation](#factory-industry-partners-supporting-innovation)
+- [Scientific References](#books-scientific-references)
+- [Citation & License](#memo-citation--license)
+- [Acknowledgments](#pray-acknowledgments)
 - [Contact](#email-contact--support)
+- [FAQ](#speech_balloon-faq)
 
 ---
 
 ## :star2: Overview
 
-This repository presents a **state-of-the-art computational framework** that combines numerical modeling of contaminant transport with machine learning techniques to predict ecological risk levels in aquatic environments. The system integrates a 2D advection-diffusion model with advanced ML algorithms to provide comprehensive risk assessment capabilities for environmental contamination scenarios.
+This repository implements a **hybrid methodology** to assess **ecological risk** associated with contaminants in water bodies (e.g., rivers and channels), integrating:
 
-### :gear: Key Capabilities
-- **:ocean: Numerical Simulation**: 2D advection-diffusion equation solver with customizable boundary conditions
-- **:robot: Machine Learning**: Multi-algorithm risk classification (Random Forest, SVM, Gradient Boosting, Logistic Regression)
-- **:warning: Risk Assessment**: Automated ecological risk level classification (Low, Medium, High)
-- **:art: Visualization**: Comprehensive plotting, animations, and interactive dashboards
-- **:microscope: Scenario Analysis**: 33 predefined hydrodynamic scenarios for comprehensive testing
+- **Numerical simulation** of transport (2D **advection–diffusion** model with decay) to generate concentration fields over the domain.
+- **Feature engineering** from results (spatial, temporal, and hydrodynamic).
+- **Machine learning** to **classify risk** into three levels: **Low (0), Medium (1), High (2)**.
+- **Visualizations** (maps, confusion matrices, feature importance, and metrics dashboards).
+- **Scenario-based execution** to build diverse and reproducible datasets.
 
-### :microscope: Applications
-
-| Field | Application | Use Case |
-|-------|-------------|----------|
-| **Environmental Engineering** :herb: | Pollution Assessment | Contaminant plume modeling, risk zone identification |
-| **Aquatic Ecology** :fish: | Ecosystem Protection | Species impact assessment, habitat risk evaluation |
-| **Water Resources** :droplet: | Management Planning | Contamination source control, remediation strategies |
-| **Regulatory Compliance** :clipboard: | Environmental Monitoring | Risk threshold validation, compliance reporting |
-| **Research & Development** :microscope: | Scientific Studies | Model validation, methodology development |
+### :wrench: Key capabilities
+- **:abacus: Numerical model**: explicit finite-difference scheme with stability checks (CFL and diffusion).
+- **:microscope: Scenarios**: multiple predefined scenarios (velocities/discharges and source positions) configurable via YAML.
+- **:robot: Risk classification**: Random Forest, SVM, Gradient Boosting, Logistic Regression; cross-validation and hyperparameter tuning.
+- **:art: Reports and plots**: comparative dashboards, detailed confusion matrices, and feature-importance ranking.
+- **:floppy_disk: Export**: outputs in NPY and CSV for interoperability (Excel/R/MATLAB/Python).
 
 ---
 
 ## :sparkles: Features
 
-### :abacus: Numerical Modeling
-- **2D Advection-Diffusion Solver**: Finite difference implementation with adaptive time stepping
-- **Flexible Boundary Conditions**: Dirichlet, Neumann, and mixed boundary types
-- **Source Term Modeling**: Point and distributed contaminant sources with temporal control
-- **Physical Processes**: Advection, diffusion, and first-order decay mechanisms
+### :abacus: Numerical simulation (contaminant transport)
+- Solves the 2D advection–diffusion equation with first-order decay.
+- Supports **Dirichlet**, **Neumann**, and **mixed** boundary conditions.
+- Models sources with configurable location, intensity, and duration.
+- Stores time history and final state for analysis and training.
 
-### :robot: Machine Learning
-- **Multi-Algorithm Support**: Random Forest, SVM, Gradient Boosting, Logistic Regression
-- **Feature Engineering**: 16 comprehensive features (8 fundamental + 8 derived)
-- **Hyperparameter Optimization**: Automated GridSearchCV with cross-validation
-- **Performance Metrics**: Accuracy, Precision, Recall, F1-Score (macro and weighted)
+### :robot: Machine learning (risk classifier)
+- Supports multiple algorithms and selects the best via cross-validation.
+- Hyperparameter tuning with GridSearchCV.
+- Two feature sets:
+  - **Fundamental (8)**: base parameters (source, velocities, position, normalized time).
+  - **Complete (16)**: fundamental + derived variables (distances, travel times, Péclet numbers, etc.).
 
-### :bar_chart: Visualization & Analysis
-- **Concentration Field Plots**: Static and animated concentration distributions
-- **Risk Level Mapping**: Color-coded risk classification visualization
-- **Model Comparison**: Performance dashboards and confusion matrices
-- **Temporal Evolution**: Video generation for concentration dynamics
-- **Feature Importance**: Analysis of predictive variable significance
-
-### :dart: Risk Assessment
-- **Three-Level Classification**: Low, Medium, and High ecological risk categories
-- **Threshold-Based**: Configurable concentration thresholds for risk determination
-- **Spatial-Temporal Analysis**: Risk evolution over space and time
-- **Predictive Modeling**: ML-based risk prediction for new scenarios
+### :movie_camera: Visualization and analysis
+- GIFs and snapshots for spatio-temporal evolution of concentration and risk.
+- Model comparison plots and metrics dashboards.
+- Confusion matrix (absolute and normalized) for detailed inspection.
 
 ---
 
 ## :package: Installation & Setup
 
-### :computer: System Requirements
+### :computer: System requirements
 
 | Component | Minimum | Recommended |
-|-----------|---------|-------------|
+|-----------|--------|-------------|
 | **Python** | 3.8+ | 3.9+ |
-| **RAM** | 8 GB | 16 GB+ |
+| **RAM** | 8 GB | 16 GB+ (if exporting full history) |
 | **CPU** | 4 cores | 8+ cores |
-| **Storage** | 2 GB | 10 GB+ (for datasets) |
-| **OS** | Windows/Linux/macOS | Linux (optimal performance) |
+| **Storage** | 2 GB | 10 GB+ (datasets + results) |
+| **OS** | Windows/Linux/macOS | Linux (better for large batches) |
 
-### :package: Dependencies
+### :clipboard: Dependencies
 
 ```python
-# Core scientific computing
-numpy >= 1.21.0          # Numerical computations
-pandas >= 1.3.0          # Data manipulation and analysis
-scipy >= 1.7.0           # Scientific algorithms
+# Scientific computing
+numpy>=1.21.0
+pandas>=1.3.0
+scipy>=1.7.0
 
 # Machine learning
-scikit-learn >= 1.0.0    # ML algorithms and metrics
-joblib >= 1.1.0          # Model serialization
+scikit-learn>=1.0.0
+joblib>=1.1.0
 
 # Visualization
-matplotlib >= 3.5.0      # Scientific plotting
-seaborn >= 0.11.0        # Statistical visualization
+matplotlib>=3.5.0
+seaborn>=0.11.0
 
-# Configuration and utilities
-PyYAML >= 6.0            # Configuration file parsing
-tqdm >= 4.62.0           # Progress bars
+# Utilities
+PyYAML>=6.0
+tqdm>=4.62.0
 ```
 
 ### Quick Installation
 
 ```bash
-# Method 1: Direct installation
-git clone https://github.com/gstinoco/contaminant-transport-ml.git
-cd contaminant-transport-ml
+# Method 1: direct install
+git clone https://github.com/gstinoco/mGFD_EcoRisk_Simulator.git
+cd mGFD_EcoRisk_Simulator
 pip install -r requirements.txt
 
-# Method 2: Virtual environment (recommended)
+# Method 2: virtual environment (recommended)
 python -m venv contaminant_env
-source contaminant_env/bin/activate  # On Windows: contaminant_env\Scripts\activate
-pip install -r requirements.txt
-
-# Method 3: Conda environment
-conda create -n contaminant_ml python=3.9
-conda activate contaminant_ml
+source contaminant_env/bin/activate  # Windows: contaminant_env\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### :white_check_mark: Installation Verification
+### :white_check_mark: Quick sanity check
 
 ```bash
-# Test installation
-python -c "import numpy, pandas, sklearn; print(':white_check_mark: Installation successful!')"
-
-# Run quick demo
+python -c "import numpy, pandas, sklearn, matplotlib, seaborn, yaml; print(':white_check_mark: OK')"
 python main.py --help
 ```
 
@@ -150,610 +140,748 @@ python main.py --help
 
 ## :rocket: Quick Start
 
-### :zap: Complete Workflow (Recommended)
+<table>
+  <thead>
+    <tr>
+      <th align="left" width="170">Step</th>
+      <th align="left">What to do</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>1) Install</b></td>
+      <td>
+        <pre><code>pip install -r requirements.txt</code></pre>
+      </td>
+    </tr>
+    <tr>
+      <td><b>2) Run</b></td>
+      <td>
+        <pre><code>python main.py --complete</code></pre>
+      </td>
+    </tr>
+    <tr>
+      <td><b>3) Check outputs</b></td>
+      <td>
+        <b>Simulations:</b> <code>data/simulations/</code><br/>
+        <b>Dataset:</b> <code>data/processed/</code><br/>
+        <b>Metrics / model:</b> <code>data/results/</code><br/>
+        <b>Visualizations:</b> <code>data/visualizations/</code> (or <code>docs/</code> for demos)
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### :zap: Typical flows (CLI)
+
 ```bash
-# Run full analysis pipeline
+# Full pipeline (complete features = default)
 python main.py --complete
-```
 
-### :building_construction: Individual Components
-```bash
-# Run only simulations
-python main.py --simulate
-
-# Preprocess data for ML
-python main.py --preprocess
-
-# Train ML models
-python main.py --train
-
-# Generate visualizations
-python main.py --visualize
-
-# Create temporal videos
-python main.py --create-videos
-```
-
-### :gear: Feature Set Options
-```bash
-# Use fundamental features (8 features)
-python main.py --complete--fundamental-features
-
-# Use complete features (16 features) - default
-python main.py --complete
-```
-
-### :wrench: Advanced Usage Examples
-```bash
-# Complete workflow with fundamental features
+# Full pipeline using only fundamental features (8)
 python main.py --complete --fundamental-features
 
-# Simulate specific scenario
+# Simulate a specific scenario
 python main.py --simulate --scenario baseline_left_center
 
-# Simulate all scenarios
+# Simulate all scenarios defined in config/parameters.yaml
 python main.py --simulate --all-scenarios
 
-# Generate videos with custom frame rate
-python main.py --create-videos --video-fps 15
+# Preprocess, train, and visualize (separately)
+python main.py --preprocess
+python main.py --train
+python main.py --visualize
 
-# Generate specific number of snapshots
+# Generate GIFs and snapshots
+python main.py --create-videos
 python main.py --create-snapshots --snapshots-count 6
-
-# Train models without saving intermediate results
-python main.py --train --no-save
-```
-
-### :ocean: Available Scenarios
-```bash
-# Baseline scenarios (standard conditions)
-python main.py --simulate --scenario baseline_left_center
-python main.py --simulate --scenario baseline_upper
-python main.py --simulate --scenario baseline_lower
-
-# High flow scenarios
-python main.py --simulate --scenario high_flow_left_center
-python main.py --simulate --scenario very_high_flow_upper
-
-# High discharge scenarios  
-python main.py --simulate --scenario high_discharge_left_center
-python main.py --simulate --scenario very_high_discharge_lower
-
-# Low conditions scenarios
-python main.py --simulate --scenario low_flow_left_center
-python main.py --simulate --scenario very_low_discharge_upper
 ```
 
 ---
 
-## :movie_camera: Visualizations & Demos
-
-### :ocean: Simulation Videos
-
-Our framework generates compelling visualizations that demonstrate contaminant transport dynamics and risk evolution in real-time.
-
-#### :ocean: Concentration Field Evolution
+## :book: Usage Guide
 
 <div align="center">
 
-**Contaminant Transport Simulation - Baseline Scenario**
+*Practical workflows for simulation, preprocessing, training, and visual analysis*
 
-*Visualization of contaminant concentration spreading over time*
+</div>
+
+### :abacus: Simulation (YAML → concentration fields)
+
+<table>
+  <thead>
+    <tr>
+      <th align="left" width="170">Step</th>
+      <th align="left">What it does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>1) Configure</b></td>
+      <td>Edit <code>config/parameters.yaml</code> (domain, physics, source, boundaries, scenarios).</td>
+    </tr>
+    <tr>
+      <td><b>2) Run</b></td>
+      <td><pre><code>python main.py --simulate --scenario baseline_lower</code></pre></td>
+    </tr>
+    <tr>
+      <td><b>3) Outputs</b></td>
+      <td>NPY/CSV are saved to <code>data/simulations/&lt;scenario&gt;/</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+### :factory: Scenario-based generation (synthetic dataset)
+
+<table>
+  <thead>
+    <tr>
+      <th align="left" width="170">Step</th>
+      <th align="left">What it does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>1) Run batch</b></td>
+      <td><pre><code>python main.py --simulate --all-scenarios</code></pre></td>
+    </tr>
+    <tr>
+      <td><b>2) Dataset</b></td>
+      <td>Scenarios create diversity (source position, flow/discharge).</td>
+    </tr>
+  </tbody>
+</table>
+
+### :gear: Preprocessing (simulations → feature matrix)
+
+<table>
+  <thead>
+    <tr>
+      <th align="left" width="170">Step</th>
+      <th align="left">What it does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>1) Run</b></td>
+      <td>
+        <pre><code>python main.py --preprocess</code></pre>
+        <pre><code>python main.py --preprocess --fundamental-features</code></pre>
+      </td>
+    </tr>
+    <tr>
+      <td><b>2) Outputs</b></td>
+      <td>
+        <code>data/processed/X_train_*.npy</code>, <code>X_test_*.npy</code>, <code>y_train_*.npy</code>, <code>y_test_*.npy</code><br/>
+        and <code>feature_names_*.txt</code>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### :robot: Training (features → risk model)
+
+<table>
+  <thead>
+    <tr>
+      <th align="left" width="170">Step</th>
+      <th align="left">What it does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>1) Train</b></td>
+      <td>
+        <pre><code>python main.py --train</code></pre>
+        <pre><code>python main.py --train --fundamental-features</code></pre>
+      </td>
+    </tr>
+    <tr>
+      <td><b>2) Evaluation</b></td>
+      <td>Computes per-model metrics and saves the best classifier.</td>
+    </tr>
+    <tr>
+      <td><b>3) Outputs</b></td>
+      <td><code>data/results/</code> (metrics CSV and classifier PKL).</td>
+    </tr>
+  </tbody>
+</table>
+
+### :art: Visualization (results → plots and dashboards)
+
+<table>
+  <thead>
+    <tr>
+      <th align="left" width="170">Step</th>
+      <th align="left">What it does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>1) Visualize</b></td>
+      <td>
+        <pre><code>python main.py --visualize</code></pre>
+        <pre><code>python main.py --visualize --fundamental-features</code></pre>
+      </td>
+    </tr>
+    <tr>
+      <td><b>2) Outputs</b></td>
+      <td><code>data/visualizations/</code> with PNGs (model comparison, confusion matrix, feature importance, dashboard).</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## :movie_camera: Visualizations
+
+### :framed_picture: Demos (GIF)
+
+<div align="center">
+
+**Contaminant evolution (concentration)**
 
 ![Concentration Evolution](docs/videos/concentration/baseline_left_center_concentration.gif)
 
-*Generated with: `python main.py --create-videos`*
-
-</div>
-
-#### :warning: Risk Level Evolution
-
-<div align="center">
-
-**Ecological Risk Assessment - Dynamic Risk Zones**
-
-*Real-time visualization of Low (🟢), Medium (🟡), and High (🔴) risk areas*
+**Ecological risk evolution**
 
 ![Risk Evolution](docs/videos/risk/baseline_left_center_risk.gif)
 
-*Generated with: `python main.py --create-videos`*
-
 </div>
 
-### :chart_with_upwards_trend: Interactive Dashboards
-
-#### Machine Learning Performance Dashboard
-![ML Dashboard](docs/images/dashboards/all_models_metrics_dashboard.png)
-
-#### Detailed Confusion Matrix Analysis
-![Confusion Matrix](docs/images/dashboards/confusion_matrix_detailed.png)
-
-#### Feature Importance Ranking
-![Feature Importance](docs/images/dashboards/feature_importance.png)
-
-### :camera: Temporal Snapshots
+### :bar_chart: Dashboards & metrics (PNG)
 
 <div align="center">
 
-**Concentration field evolution at key time points**
+![All Models Metrics Dashboard](docs/images/dashboards/all_models_metrics_dashboard.png)
 
-| Time | Concentration Field |
-|------|---------------------|
-| **t = 0s** | ![Snapshot 1](docs/images/snapshots/baseline_left_center_t0.0s_snapshot_1.png) |
-| **t = 100s** | ![Snapshot 2](docs/images/snapshots/baseline_left_center_t100.0s_snapshot_2.png) |
-| **t = 200s** | ![Snapshot 3](docs/images/snapshots/baseline_left_center_t200.0s_snapshot_3.png) |
-| **t = 300s** | ![Snapshot 4](docs/images/snapshots/baseline_left_center_t300.0s_snapshot_4.png) |
+![Confusion Matrix](docs/images/dashboards/confusion_matrix_detailed.png)
+
+![Feature Importance](docs/images/dashboards/feature_importance.png)
 
 </div>
 
-### :gear: How to Generate Visualizations
+### :camera_flash: Snapshots (example)
 
-#### Create Simulation Videos
+<div align="center">
+
+![Snapshot](docs/images/snapshots/baseline_left_center_t200.0s_snapshot_3.png)
+
+</div>
+
+---
+
+---
+
+## :gear: API Documentation
+
+This project is primarily used as a command-line tool (CLI) via `main.py`.
+
+| Entry point | Command | Purpose |
+|------------|---------|-----------|
+| `main.py` | `python main.py --complete` | Runs the full flow (simulation → dataset → training → visualization) |
+| `main.py` | `python main.py --simulate [--scenario <name> | --all-scenarios]` | Runs numerical simulations |
+| `main.py` | `python main.py --preprocess [--fundamental-features]` | Builds the ML dataset |
+| `main.py` | `python main.py --train [--fundamental-features]` | Trains models and saves the best one |
+| `main.py` | `python main.py --visualize [--fundamental-features]` | Generates plots/dashboards from results |
+| `main.py` | `python main.py --create-videos` | Generates time-evolution GIFs |
+| `main.py` | `python main.py --create-snapshots --snapshots-count N` | Generates snapshots at selected times |
+
+For full help:
+
 ```bash
-# Generate videos for all scenarios (concentration and risk evolution)
-python main.py --create-videos
-
-# Generate videos with custom frame rate
-python main.py --create-videos --video-fps 15
-
-# First simulate specific scenario, then create videos
-python main.py --simulate --scenario baseline_left_center
-python main.py --create-videos
+python main.py --help
 ```
 
-#### Create Static Visualizations
-```python
-from src.visualization.visualization import ContaminantVisualizer
+---
 
-# Initialize visualizer
-viz = ContaminantVisualizer('config/parameters.yaml')
+## :file_cabinet: Data Formats
 
-# Create concentration field plot
-viz.plot_concentration_field(concentration, x, y, time=120.0, 
-                           scenario_name="baseline_left_center")
+### :floppy_disk: Simulation (NPY / CSV)
 
-# Generate temporal snapshots
-snapshot_paths = viz.create_snapshots(concentration_history, x, y, 
-                                    time_points, num_snapshots=4)
+Each scenario stores (at minimum) the following in `data/simulations/<scenario>/`:
 
-# Create simulation video (GIF)
-viz.create_simulation_video(concentration_history, x, y, time_points,
-                          scenario_name="baseline_left_center", fps=10)
+- `final_concentration.npy`: final field `C(x,y,t_final)`
+- `concentration_history.npy`: time history (can be large)
+- `x_coordinates.npy`, `y_coordinates.npy`: spatial axes
+- `times.npy`: time vector
+- `parameters.yaml`: effective parameters used (base + scenario overrides)
 
-# Create risk evolution video
-viz.create_risk_evolution_video(concentration_history, x, y, time_points,
-                              scenario_name="baseline_left_center", fps=10)
-```
+If `output.export_csv: true` in `config/parameters.yaml`, it also exports:
 
-#### Machine Learning Visualizations
-```python
-from src.ml_model.risk_classifier import RiskClassifier
+- `final_concentration.csv`
+- `coordinates.csv`
+- `times.csv`
+- `concentration_history.csv` (only if `output.csv_include_history: true`, can be very large)
 
-# Initialize classifier
-classifier = RiskClassifier('config/parameters.yaml')
+### :robot: ML dataset (NPY)
 
-# Generate performance dashboard
-classifier.plot_all_model_metrics(model_results, 
-                                 save_path="data/visualizations/ml_dashboard.png")
+In `data/processed/` it stores (with compatibility suffixes):
 
-# Create detailed confusion matrix
-classifier.plot_confusion_matrix_detailed(conf_matrix,
-                                         save_path="data/visualizations/confusion_matrix.png")
+- Complete features (16): `*_complete.npy` and `feature_names_complete.txt`
+- Fundamental features (8): `*_fundamental.npy` and `feature_names_fundamental.txt`
 
-# Feature importance analysis
-classifier.plot_feature_importance(feature_names, importance_scores,
-                                  save_path="data/visualizations/feature_importance.png")
-```
-
-### :bulb: Visualization Features
-
-| Feature | Description | Output Format |
-|---------|-------------|---------------|
-| **Concentration Evolution** :ocean: | Time-lapse of contaminant spreading | GIF, MP4 |
-| **Risk Zone Mapping** :warning: | Dynamic ecological risk assessment | GIF, MP4 |
-| **Temporal Snapshots** :camera: | Key moments in simulation | PNG |
-| **ML Performance Dashboard** :chart_with_upwards_trend: | Comprehensive model comparison | PNG |
-| **Confusion Matrix Analysis** :dart: | Detailed classification metrics | PNG |
-| **Feature Importance** :microscope: | ML feature ranking visualization | PNG |
-
-### :art: Customization Options
-
-```yaml
-# In config/parameters.yaml
-visualization:
-  figure_size: [12, 8]          # Figure dimensions
-  dpi: 300                      # Image resolution
-  colormap: 'viridis'           # Color scheme
-  contour_levels: 20            # Contour detail level
-  
-  animation:
-    fps: 10                     # Video frame rate
-    max_frames: 100             # Maximum frames for optimization
-    dpi_video: 150              # Video resolution
-```
+Targets:
+- `y_*`: risk labels `0/1/2` for (Low/Medium/High).
 
 ---
 
 ## :open_file_folder: Project Architecture
 
-### Core Components
-
+```text
+.
+├─ config/
+│  └─ parameters.yaml           # Model, ML, visualization, and scenario parameters
+├─ data/
+│  ├─ simulations/              # Per-scenario outputs (NPY/CSV + parameters)
+│  ├─ processed/                # ML matrices (X/y + feature names)
+│  └─ results/                  # Metrics and trained models (CSV/PKL)
+├─ docs/
+│  ├─ images/                   # Dashboards and snapshots
+│  ├─ videos/                   # Concentration and risk GIFs
+│  └─ logo/                     # Logos
+├─ src/
+│  ├─ numerical_model/          # Advection–diffusion equation (FD)
+│  ├─ ml_model/                 # Preprocessing and risk classifier
+│  └─ visualization/            # Plots, dashboards, GIFs and snapshots
+└─ main.py                      # CLI and full-flow orchestration
 ```
-📦 contaminant-transport-ml/
-├── :snake: main.py                          # Main execution script and workflow orchestrator
-│   ├── load_configuration()                # YAML parameter loading
-│   ├── run_simulations()                   # Numerical model execution
-│   ├── train_models()                      # ML pipeline management
-│   └── generate_visualizations()           # Comprehensive plotting
-│
-├── :gear: requirements.txt                 # Python dependencies specification
-│
-├── :file_folder: config/                   # Configuration management
-│   └── parameters.yaml                     # Simulation and ML parameters
-│
-├── :building_construction: src/             # Core source code modules
-│   ├── :ocean: numerical_model/
-│   │   └── advection_diffusion.py          # 2D transport simulation engine
-│   │       ├── AdvectionDiffusionModel      # Main solver class
-│   │       ├── solve_transport()            # Finite difference solver
-│   │       └── apply_boundary_conditions()  # Boundary condition handler
-│   │
-│   ├── :robot: ml_model/
-│   │   ├── data_preprocessing.py           # Data preparation and feature engineering
-│   │   │   ├── DataPreprocessor            # Feature extraction class
-│   │   │   ├── extract_features()          # Spatial-temporal feature extraction
-│   │   │   └── prepare_datasets()          # Train/test split management
-│   │   │
-│   │   └── risk_classifier.py              # ML risk classification models
-│   │       ├── RiskClassifier              # Multi-algorithm classifier
-│   │       ├── train_models()              # Model training pipeline
-│   │       └── evaluate_performance()      # Metrics and validation
-│   │
-│   └── :art: visualization/
-│       └── visualization.py                # Plotting and animation tools
-│           ├── ContaminantVisualizer       # Main visualization class
-│           ├── plot_model_comparison()     # Performance dashboards
-│           └── create_animations()         # GIF generation
-│
-└── :file_cabinet: data/                    # Generated datasets and results
-    ├── processed/                          # Preprocessed ML datasets
-    │   ├── X_train_complete.npy           # Complete feature set (training)
-    │   ├── X_train_fundamental.npy        # Fundamental features (training)
-    │   └── feature_names_*.txt            # Feature documentation
-    │
-    ├── results/                            # Model outputs and metrics
-    │   ├── risk_classifier_model.pkl      # Trained ML models
-    │   └── all_models_metrics_report.csv  # Performance comparison
-    │
-    ├── simulations/                        # Numerical simulation results
-    │   ├── baseline_*/                     # Standard flow conditions
-    │   ├── high_flow_*/                    # High velocity scenarios
-    │   └── low_discharge_*/                # Low contamination scenarios
-    │
-    ├── snapshots/                          # Temporal concentration snapshots
-    ├── videos/                             # Animation files (GIF format)
-    ├── visualizations/                     # Static plots and figures
-    │   ├── confusion_matrix_detailed.png   # Model performance analysis
-    │   ├── feature_importance.png          # Feature ranking visualization
-    │   └── all_models_metrics_dashboard.png # Comprehensive metrics
-    └── article/
-        ├── articulo_metodologia.tex        # Research article
-        └── articulo_metodologia.pdf        # Compiled article
+
+Core components:
+- `src/numerical_model/advection_diffusion.py`: 2D transport solver.
+- `src/ml_model/data_preprocessing.py`: feature extraction + risk labels.
+- `src/ml_model/risk_classifier.py`: model training/evaluation/persistence.
+- `src/visualization/visualization.py`: visualization and export.
+
+---
+
+## :books: Mathematical Model
+
+### :books: Governing equation
+
+Contaminant transport is modeled with the 2D advection–diffusion equation with decay:
+
+$$
+    \frac{\partial C}{\partial t} = u \frac{\partial C}{\partial x} + v \frac{\partial C}{\partial y} + D \left( \frac{\partial^2 C}{\partial x^2} + \frac{\partial^2 C}{\partial y^2} \right) + S - k C
+$$
+
+Where:
+- `C`: contaminant concentration [mg/L]
+- `u, v`: advection velocities [m/s]
+- `D`: diffusion coefficient [m²/s]
+- `S`: source (injection) [mg/(L·s)]
+- `k`: decay rate [1/s]
+
+### :triangular_flag_on_post: Boundary conditions
+
+Configurable in `config/parameters.yaml` as:
+- **Dirichlet**: fixed concentration at the boundary.
+- **Neumann**: fixed gradient/flux (open outflow).
+- **Mixed**: per-side combination.
+
+### :warning: Numerical stability (explicit scheme)
+
+The solver prints typical checks:
+- CFL condition for advection.
+- Stability condition for diffusion.
+
+If violated, adjust `dt`, `dx`, `dy`, or physical parameters in the configuration.
+
+---
+
+## :file_cabinet: Dataset Structure
+
+This project can operate as:
+- A **dataset generator** (scenario-driven) from simulations.
+- An **ML pipeline** for risk classification using previously generated datasets.
+
+Main layout:
+
+```text
+data/
+├─ simulations/
+│  ├─ baseline_left_center/
+│  ├─ baseline_lower/
+│  └─ baseline_upper/
+├─ processed/
+│  ├─ X_train_complete.npy
+│  ├─ X_test_complete.npy
+│  ├─ y_train_complete.npy
+│  ├─ y_test_complete.npy
+│  ├─ feature_names_complete.txt
+│  ├─ X_train_fundamental.npy
+│  ├─ X_test_fundamental.npy
+│  ├─ y_train_fundamental.npy
+│  ├─ y_test_fundamental.npy
+│  └─ feature_names_fundamental.txt
+└─ results/
+   ├─ all_models_metrics_report.csv
+   ├─ all_models_metrics_report (fundamental features).csv
+   ├─ risk_classifier_model.pkl
+   └─ risk_classifier_model (fundamental features).pkl
 ```
 
 ---
 
-## :bulb: Programming Examples
+## :chart_with_upwards_trend: Performance Benchmarks
 
-### Basic Simulation
-```python
-from src.numerical_model.advection_diffusion import AdvectionDiffusionModel
+### :trophy: Reported metrics (example)
 
-# Load configuration and run simulation
-config = load_config('config/parameters.yaml')
-model = AdvectionDiffusionModel(config)
-concentration_history = model.solve()
-```
+Reference results (files in `data/results/`):
 
-### Machine Learning Analysis
-```python
-from src.ml_model.risk_classifier import RiskClassifier
+| Feature set | Best model (Accuracy) | File |
+|---|---:|---|
+| **Complete (16)** | GradientBoosting (**0.9997**) | `all_models_metrics_report.csv` |
+| **Fundamental (8)** | GradientBoosting (**0.9893**) | `all_models_metrics_report (fundamental features).csv` |
 
-# Initialize and train classifier
-classifier = RiskClassifier('config/parameters.yaml')
-cv_scores = classifier.evaluate_models(X_train, y_train)
-classifier.train_all_models(X_train, y_train)
-results = classifier.evaluate_model(X_test, y_test)
-```
-
-### Visualization
-```python
-from src.visualization.visualization import ContaminantVisualizer
-
-# Create visualizations
-viz = ContaminantVisualizer('config/parameters.yaml')
-viz.plot_concentration_field(concentration, x, y)
-viz.create_simulation_video(concentration_history, x, y, times)
-```
+> Note: Results depend on configuration, sampling, and the available scenarios.
 
 ---
 
-## ⚙️ Configuration
+## :handshake: Contributing
 
-The system is configured through `config/parameters.yaml`:
+<div align="center">
 
-### Domain Parameters
-```yaml
-domain:
-  length_x: 200.0      # Domain length (m)
-  length_y: 10.0       # Domain width (m)
-  dx: 5.0              # Grid spacing x (m)
-  dy: 0.25             # Grid spacing y (m)
-  dt: 0.05             # Time step (s)
-  total_time: 300.0    # Simulation time (s)
+### :star2: Contribute to the Project
+*Bug reports, feature requests, and pull requests are welcome*
+
+[![Issues](https://img.shields.io/github/issues/gstinoco/mGFD_EcoRisk_Simulator?style=flat-square)](https://github.com/gstinoco/mGFD_EcoRisk_Simulator/issues)
+[![Pull Requests](https://img.shields.io/github/issues-pr/gstinoco/mGFD_EcoRisk_Simulator?style=flat-square)](https://github.com/gstinoco/mGFD_EcoRisk_Simulator/pulls)
+
+</div>
+
+### :bug: Bug Reports
+1. **Search existing issues**: Check if the bug has already been reported
+2. **Create a detailed report**: Include steps to reproduce and expected vs actual behavior
+3. **Provide context**: Operating system, Python version, browser, and relevant parameters (image size, regions, method)
+
+### :bulb: Feature Requests
+1. **Describe the feature**: Clear and concise description of the proposed functionality
+2. **Justify the need**: Explain how it benefits research, reproducibility, or usability
+3. **Provide examples**: Use cases, expected inputs/outputs, and acceptance criteria
+
+### :computer: Code Contributions
+
+```bash
+git clone https://github.com/gstinoco/mGFD_EcoRisk_Simulator.git
+cd mGFD_EcoRisk_Simulator
+
+python -m venv dev_env
+source dev_env/bin/activate  # On Windows: dev_env\Scripts\activate
+pip install -r requirements.txt
+
+git checkout -b feature/your-feature-name
 ```
-
-### Physical Parameters
-```yaml
-physics:
-  diffusion_coefficient: 0.1    # Diffusion (m²/s)
-  advection_velocity:
-    u: 0.5                      # x-velocity (m/s)
-    v: 0.1                      # y-velocity (m/s)
-  decay_rate: 0.001             # Decay rate (1/s)
-```
-
-### Risk Thresholds
-```yaml
-risk_thresholds:
-  low: 0.001           # Low risk threshold (mg/L)
-  medium: 0.01         # Medium risk threshold (mg/L)
-```
-
----
-
-## :chart_with_upwards_trend: Results and Performance
-
-### :trophy: Model Performance (Complete Features)
-
-| Algorithm | Accuracy | Precision | Recall | F1-Score | Training Time |
-|-----------|----------|-----------|--------|----------|---------------|
-| **Gradient Boosting** :rocket: | **0.9997** | **0.9992** | **0.9995** | **0.9994** | 8.7s |
-| **Random Forest** :deciduous_tree: | 0.9968 | 0.9951 | 0.9893 | 0.9922 | 2.3s |
-| **SVM** :dart: | 0.9625 | 0.9358 | 0.9167 | 0.9256 | 15.2s |
-| **Logistic Regression** :chart_with_upwards_trend: | 0.8662 | 0.5779 | 0.6301 | 0.6029 | 0.8s |
-
-### :gear: Model Performance (Fundamental Features)
-
-| Algorithm | Accuracy | Precision | Recall | F1-Score | Training Time |
-|-----------|----------|-----------|--------|----------|---------------|
-| **Gradient Boosting** :rocket: | **0.9893** | **0.9721** | **0.9774** | **0.9748** | 6.4s |
-| **Random Forest** :deciduous_tree: | 0.9627 | 0.9447 | 0.8718 | 0.8999 | 1.8s |
-| **SVM** :dart: | 0.9394 | 0.9153 | 0.8439 | 0.8708 | 11.7s |
-| **Logistic Regression** :chart_with_upwards_trend: | 0.7435 | 0.4960 | 0.5407 | 0.5174 | 0.6s |
-
-### :microscope: Feature Importance Analysis
-
-| Rank | Feature | Importance | Description |
-|------|---------|------------|-------------|
-| **1** | Maximum Concentration | 0.2847 | Peak contamination level in domain |
-| **2** | Mean Concentration | 0.1923 | Average contamination across domain |
-| **3** | Concentration Variance | 0.1456 | Spatial variability measure |
-| **4** | Affected Area Ratio | 0.1234 | Proportion of contaminated region |
-| **5** | Concentration Gradient | 0.0987 | Spatial concentration change rate |
-| **6** | Distance to Source | 0.0654 | Proximity to contamination origin |
-| **7** | Flow Velocity | 0.0543 | Advective transport strength |
-| **8** | Diffusion Coefficient | 0.0356 | Dispersive transport parameter |
-
-### :bar_chart: Generated Outputs
-
-| Output Type | Quantity | Description |
-|-------------|----------|-------------|
-| **Simulation Data** :ocean: | 198,000 fields | 33 scenarios × 6,000 time steps |
-| **ML Datasets** :robot: | 2 versions | Complete (16 features) + Fundamental (8 features) |
-| **Trained Models** :brain: | 8 models | 4 algorithms × 2 feature sets |
-| **Visualizations** :art: | 3 dashboards | Performance metrics, confusion matrices, feature importance |
-| **Animations** :movie_camera: | 66 GIF files | Concentration + risk evolution for each scenario (33 × 2) |
-| **Snapshots** :camera: | 264 images | Detailed concentration field visualizations |
-| **Reports** :clipboard: | 2 CSV files | Comprehensive metrics comparison |
-
-### :dart: Performance Benchmarks
-
-| Metric | Complete Features | Fundamental Features | Difference |
-|--------|------------------|---------------------|-------------|
-| **Best Accuracy** | 99.97% (Gradient Boosting) | 98.93% (Gradient Boosting) | +1.05% |
-| **Average F1-Score** | 88.00% | 81.57% | +7.88% |
-| **Training Time** | 6.75s avg | 5.12s avg | -24.1% faster |
-| **Model Size** | 4.5 MB | 5.7 MB | +26.7% |
 
 ---
 
 ## :scientist: Research Team
 
-### :man_scientist: Principal Investigators
+<div align="center">
 
-<table>
-<tr>
-<td width="50%">
+### :star2: Meet the Team
+*Researchers and graduate students advancing meshless computational methods*
 
-**Dr. Gerardo Tinoco Guerrero** :mexico:
-- :office: [SIIIA MATH: Soluciones en ingeniería](http://www.siiia.com.mx)
-- :classical_building: [Universidad Michoacana de San Nicolás de Hidalgo](http://www.umich.mx)
-- :microscope: Numerical Methods & Environmental Modeling
-- :email: gerardo.tinoco@umich.mx
-- :globe_with_meridians: [ORCID](https://orcid.org/0000-0003-3119-770X)
+</div>
 
-</td>
-<td width="50%">
+### :busts_in_silhouette: Main Researchers
 
-**Dr. Francisco Javier Domínguez Mota** :mexico:
-- :office: [SIIIA MATH: Soluciones en ingeniería](http://www.siiia.com.mx)
-- :classical_building: [Universidad Michoacana de San Nicolás de Hidalgo](http://www.umich.mx)
-- :microscope: Applied Mathematics & Finite Difference Methods
-- :email: francisco.mota@umich.mx
-- :globe_with_meridians: [ORCID](https://orcid.org/0000-0001-6837-172X)
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-**Dr. José Alberto Guzmán Torres** :mexico:
-- :office: [SIIIA MATH: Soluciones en ingeniería](http://www.siiia.com.mx)
-- :classical_building: [Universidad Michoacana de San Nicolás de Hidalgo](http://www.umich.mx)
-- :microscope: Engineering Applications & Artificial Intelligence
-- :email: jose.alberto.guzman@umich.mx
-- :globe_with_meridians: [ORCID](https://orcid.org/0000-0002-9309-9390)
-
-</td>
-<td width="50%">
-
-**Research Focus Areas:**
-- :ocean: Environmental contamination modeling
-- :robot: Machine learning for risk assessment
-- :abacus: Numerical methods for PDEs
-- :chart_with_upwards_trend: Data-driven environmental management
-
-</td>
-</tr>
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center" width="120">Photo</th>
+      <th align="left">Researcher</th>
+      <th align="left">Affiliation</th>
+      <th align="left">Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center" width="120">
+        <img src="docs/team/gtinoco.webp" alt="Dr. Gerardo Tinoco Guerrero" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Dr. Gerardo Tinoco Guerrero</b> :mexico:<br/>
+        <sub>Numerical Methods &amp; Computational Mathematics</sub>
+      </td>
+      <td>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:gerardo.tinoco@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a><br/>
+        <a href="https://orcid.org/0000-0003-3119-770X"><img alt="ORCID 0000-0003-3119-770X" src="https://img.shields.io/badge/ORCID-0000--0003--3119--770X-green"></a><br/>
+        <a href="https://www.researchgate.net/profile/Gerardo-Tinoco-Guerrero"><img alt="ResearchGate Profile" src="https://img.shields.io/badge/ResearchGate-Profile-teal"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="120">
+        <img src="docs/team/dmota.webp" alt="Dr. Francisco Javier Domínguez Mota" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Dr. Francisco Javier Domínguez Mota</b> :mexico:<br/>
+        <sub>Applied Mathematics &amp; Finite Difference Methods</sub>
+      </td>
+      <td>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:francisco.mota@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a><br/>
+        <a href="https://orcid.org/0000-0001-6837-172X"><img alt="ORCID 0000-0001-6837-172X" src="https://img.shields.io/badge/ORCID-0000--0001--6837--172X-green"></a><br/>
+        <a href="https://www.researchgate.net/profile/Francisco-Dominguez-Mota"><img alt="ResearchGate Profile" src="https://img.shields.io/badge/ResearchGate-Profile-teal"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="120">
+        <img src="docs/team/jagt.webp" alt="Dr. José Alberto Guzmán Torres" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Dr. José Alberto Guzmán Torres</b> :mexico:<br/>
+        <sub>Engineering Applications &amp; Artificial Intelligence</sub>
+      </td>
+      <td>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:jose.alberto.guzman@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a><br/>
+        <a href="https://orcid.org/0000-0002-9309-9390"><img alt="ORCID 0000-0002-9309-9390" src="https://img.shields.io/badge/ORCID-0000--0002--9309--9390-green"></a><br/>
+        <a href="https://www.researchgate.net/profile/Jose-Guzman-Torres"><img alt="ResearchGate Profile" src="https://img.shields.io/badge/ResearchGate-Profile-teal"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="120">
+        <img src="docs/team/harias.webp" alt="Dr. Heriberto Árias Rojas" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Dr. Heriberto Árias Rojas</b> :mexico:<br/>
+        <sub>Engineering Applications</sub>
+      </td>
+      <td>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/%F0%9F%8F%A2%20Company-SIIIA%20MATH-0B1B3A"></a><br/>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:heriberto.arias@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a><br/>
+        <a href="https://orcid.org/0000-0002-7641-8310"><img alt="ORCID 0000-0002-7641-8310" src="https://img.shields.io/badge/ORCID-0000--0002--7641--8310-green"></a><br/>
+        <a href="https://www.researchgate.net/profile/Heriberto-Arias-Rojas"><img alt="ResearchGate Profile" src="https://img.shields.io/badge/ResearchGate-Profile-teal"></a>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
-### :mortar_board: Graduate Students
+### :mortar_board: Ph.D. Research Students
 
-<table>
-<tr>
-<td width="50%">
-
-**Undergraduate Student - María Goretti Fraga López** :woman_student:
-- :classical_building: Universidad Michoacana de San Nicolás de Hidalgo
-- :microscope: Numerical simulation of contaminant transport
-- :email: 1702174b@umich.mx
-
-</td>
-<td width="50%">
-
-**M.Sc. Student - Christopher Nolan Magaña Barocio** :man_technologist:
-- :classical_building: Universidad Michoacana de San Nicolás de Hidalgo
-- :microscope: AI applications in risk assessment
-- :email: 1339846k@umich.mx
-
-</td>
-</tr>
-<tr>
-<td width="50%">
-
-**M.Sc. Student - Jorge Luis González Figueroa** :man_technologist:
-- :classical_building: Universidad Michoacana de San Nicolás de Hidalgo
-- :microscope: AI applications in biological dynamics
-- :email: 1718717h@umich.mx
-
-</td>
-<td width="50%">
-
-**Research Contributions:**
-- :gear: Numerical model development
-- :robot: ML algorithm implementation
-- :art: Visualization and analysis tools
-- :microscope: Scientific validation and testing
-
-</td>
-</tr>
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center" width="120">Photo</th>
+      <th align="left">Student</th>
+      <th align="left">Institution</th>
+      <th align="left">Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center" width="120">
+        <img src="docs/team/gpj.webp" alt="Gabriela Pedraza-Jiménez" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Gabriela Pedraza-Jiménez</b><br/>
+        <img alt="Ph.D. Research Student" src="https://img.shields.io/badge/Ph.D.-Research%20Student-2E8B57?style=flat-square">
+      </td>
+      <td>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:2220157h@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="120">
+        <img src="docs/team/eci.webp" alt="Eli Chagolla-Inzunza" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Eli Chagolla-Inzunza</b><br/>
+        <img alt="Ph.D. Research Student" src="https://img.shields.io/badge/Ph.D.-Research%20Student-2E8B57?style=flat-square">
+      </td>
+      <td>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:1137626b@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a>
+      </td>
+    </tr>
+  </tbody>
 </table>
 
-## :books: Scientific Background
+### :mortar_board: M.Sc. Research Students
 
-### :abacus: Mathematical Foundation
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center" width="120">Photo</th>
+      <th align="left">Student</th>
+      <th align="left">Institution</th>
+      <th align="left">Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center" width="120">
+        <img src="docs/team/jlgf.webp" alt="Jorge L. González-Figueroa" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Jorge L. González-Figueroa</b><br/>
+        <img alt="M.Sc. Research Student" src="https://img.shields.io/badge/M.Sc.-Research%20Student-green?style=flat-square">
+      </td>
+      <td>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:1718717h@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a>
+      </td>
+    </tr>
+    <tr>
+      <td align="center" width="120">
+        <img src="docs/team/cnmb.webp" alt="Christopher N. Magaña-Barocio" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Christopher N. Magaña-Barocio</b><br/>
+        <img alt="M.Sc. Research Student" src="https://img.shields.io/badge/M.Sc.-Research%20Student-green?style=flat-square">
+      </td>
+      <td>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:1339846k@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-The contaminant transport process is governed by the **2D advection-diffusion equation**:
+### :mortar_board: Undergraduate Research Students
 
-$$
-  \frac{\partial C}{\partial t} + u\frac{\partial C}{\partial x} + v \frac{\partial C}{\partial y} = D \left(\frac{\partial^2 C}{\partial x^2} + \frac{\partial^2 C}{\partial y^2}\right) - \lambda C + S
-$$
-
-Where:
-- `C`: Contaminant concentration (mg/L)
-- `u, v`: Velocity components (m/s)
-- `D`: Diffusion coefficient (m²/s)
-- `λ`: Decay rate (1/s)
-- `S`: Source term (mg/L/s)
-
-### :gear: Numerical Implementation
-
-- **Spatial Discretization**: Central finite differences (second-order accuracy)
-- **Time Integration**: Explicit Euler scheme with stability control
-- **Boundary Conditions**: Mixed Dirichlet/Neumann with environmental relevance
-- **Stability**: CFL condition enforcement for numerical stability
-
-### :robot: Machine Learning Pipeline
-
-| Stage | Process | Description |
-|-------|---------|-------------|
-| **Feature Extraction** | Spatial-temporal analysis | Extract statistical and geometric features from concentration fields |
-| **Data Preprocessing** | Normalization & scaling | StandardScaler for feature standardization |
-| **Model Training** | Multi-algorithm approach | Random Forest, SVM, Gradient Boosting, Logistic Regression |
-| **Hyperparameter Tuning** | Grid search optimization | Cross-validation for optimal parameter selection |
-| **Performance Evaluation** | Comprehensive metrics | Accuracy, precision, recall, F1-score, confusion matrices |
-
-### :microscope: Feature Engineering
-
-#### Fundamental Features (8)
-- `source_x, source_y`: Source coordinates
-- `x_position, y_position`: Observation point coordinates
-- `velocity_u, velocity_v`: Flow field components
-- `source_strength`: Emission intensity
-- `time_normalized`: Temporal coordinate
-
-#### Derived Features (8)
-- `distance_to_source`: Euclidean distance to source
-- `dx_from_source, dy_from_source`: Displacement components
-- `travel_time_x, travel_time_y`: Advective travel times
-- `peclet_x, peclet_y`: Péclet numbers (advection/diffusion ratio)
-- `diffusion_coeff`: Local diffusion coefficient
-
-### :warning: Risk Assessment Framework
-
-| Risk Level | Concentration Range | Ecological Impact | Management Action |
-|------------|-------------------|-------------------|-------------------|
-| **Low** :green_circle: | < 0.001 mg/L | Minimal ecosystem disruption | Routine monitoring |
-| **Medium** :yellow_circle: | 0.001 - 0.01 mg/L | Moderate impact on sensitive species | Enhanced surveillance |
-| **High** :red_circle: | > 0.01 mg/L | Significant ecological damage | Immediate intervention |
+<table align="center">
+  <thead>
+    <tr>
+      <th align="center" width="120">Photo</th>
+      <th align="left">Student</th>
+      <th align="left">Institution</th>
+      <th align="left">Contact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center" width="120">
+        <img src="docs/team/profile_placeholder_woman.svg" alt="Maria Goretti Fraga Lopez" width="96" height="96" style="border-radius: 50%;">
+      </td>
+      <td>
+        <b>Maria Goretti Fraga-Lopez</b><br/>
+        <img alt="Undergraduate Research Student" src="https://img.shields.io/badge/Undergraduate-Research%20Student-green?style=flat-square">
+      </td>
+      <td>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/%F0%9F%8E%93%20University-UMSNH-1A3A6B"></a>
+      </td>
+      <td>
+        <a href="mailto:1702174b@umich.mx"><img alt="Contact" src="https://img.shields.io/badge/%F0%9F%93%A7-Contact-blue"></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
-## :memo: Citation
+## :factory: Industry Partners Supporting Innovation
+
+<div align="center">
+
+### :star2: Industry Partners Supporting Innovation
+*Collaboration between academia and industry to accelerate real-world impact*
+
+</div>
+
+<div align="center">
+
+<table align="center" width="70%">
+<tr>
+<td align="center">
+
+### :factory: **SIIIA MATH**
+#### *Soluciones de Ingeniería, México*
+
+<div align="center">
+
+[![Website](https://img.shields.io/badge/🌐-Visit%20Website-blue?style=for-the-badge)](http://www.siiia.com.mx)
+[![Type](https://img.shields.io/badge/📊-R%26D%20Company-orange?style=flat-square)](http://www.siiia.com.mx)
+[![Location](https://img.shields.io/badge/📍-Morelia,%20Mexico-green?style=flat-square)](http://www.siiia.com.mx)
+
+</div>
+
+**🎯 Focus areas:**
+- Mathematical modeling & simulation
+- AI/ML engineering solutions
+- Technology transfer and applied R&amp;D
+
+<div align="center">
+
+[![Contact](https://img.shields.io/badge/📧-Partnership%20Contact-0B1B3A?style=for-the-badge)](mailto:gtinoco@siiia.com.mx)
+
+</div>
+
+</td>
+</tr>
+</table>
+
+</div>
+
+---
+
+## :books: Scientific References
+
+### :books: Core Publications (GFD / mGFD Background)
+
+1. **Tinoco-Guerrero, G.**, Domínguez-Mota, F. J., Guzmán-Torres, J. A., & Tinoco-Ruiz, J. G. (2022). *"Numerical Solution of Diffusion Equation using a Method of Lines and Generalized Finite Differences."* **Revista Internacional de Métodos Numéricos para Cálculo y Diseño en Ingeniería**, 38(2). [DOI: 10.23967/j.rimni.2022.06.003](http://dx.doi.org/10.23967/j.rimni.2022.06.003)
+
+### :trophy: Project Highlights
+
+- **Contour-to-cloud pipeline**: interactive image-based contour extraction and multi-region management
+- **Cloud generation methods**: Regular (grid-like) and Natural (Poisson disk sampling) distributions
+- **Region-aware analysis**: neighbor computation constrained by region labels for disconnected domains and holes
+
+---
+
+## :memo: Citation & License
 
 If you use this software in your research, please cite:
 
 ```bibtex
-@software{contaminant_transport_ml_2024,
-  title={Contaminant Transport Modeling with Machine Learning: 
-         Advanced Computational Framework for Environmental Risk Assessment},
+@software{tinoco2025mGFD_cloudgenerator,
+  title={mGFD CloudGenerator 2.0: Web platform for generating 2D unstructured point clouds},
   author={Tinoco-Guerrero, Gerardo and 
           Domínguez-Mota, Francisco Javier and 
-          Guzmán-Torres, José Alberto},
+          Guzmán-Torres, José Alberto and
+          Arias-Rojas, Heriberto},
   year={2025},
   institution={Universidad Michoacana de San Nicolás de Hidalgo},
   organization={SIIIA MATH: Soluciones en ingeniería},
-  url={https://github.com/gstinoco/contaminant-transport-ml},
-  note={Advanced computational framework for contaminant transport and ecological risk assessment}
+  url={https://github.com/gstinoco/mGFD_EcoRisk_Simulator},
+  version={2.0},
+  note={Web-based preprocessing tool for meshless mGFD workflows: image-to-contour extraction, multi-region handling, point-cloud generation (regular/Poisson), node classification, and region-constrained neighbor analysis}
 }
 ```
 
-### :classical_building: Institutional Support
-
-**Primary Funding:**
-- :school: **Universidad Michoacana de San Nicolás de Hidalgo (UMSNH)**
-- :school: **Secretaría de Ciencia, Humanidades, Tecnología e Innovación (SECIHTI)**
-- :office: **SIIIA MATH: Soluciones en ingeniería**
-
-### :bookmark_tabs: License
+### :page_facing_up: License
 
 This project is licensed under the **MIT License** - see the full license text below:
 
 ```
 MIT License
 
-Copyright (c) 2025 Gerardo Tinoco-Guerrero, Francisco Javier Domínguez-Mota, José Alberto Guzmán-Torres
+Copyright (c) 2025 Gerardo Tinoco-Guerrero, Francisco Javier Domínguez-Mota, 
+                   José Alberto Guzmán-Torres, Heriberto Árias Rojas
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -774,38 +902,303 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-**Academic Use:** This software is developed for research and educational purposes. Commercial use requires explicit permission from the authors.
+**Academic Use:** This software is developed for research and educational purposes. Commercial use is permitted under the MIT License terms.
+
+---
+
+## :pray: Acknowledgments
+
+<div align="center">
+
+### :heart: Special Thanks
+*We extend our gratitude to the institutions and partners supporting this research and open-source development*
+
+</div>
+
+### :classical_building: Institutional Support
+
+<table align="center" width="100%" cellspacing="14">
+  <tr>
+    <td width="50%" valign="top">
+      <div style="border: 1px solid #d0d7de; border-radius: 12px; padding: 16px;">
+        <div align="center">
+          <b>🎓 Universidad Michoacana de San Nicolás de Hidalgo (UMSNH)</b><br/>
+          <sub>Academic institution, Mexico</sub><br/><br/>
+          <a href="http://www.umich.mx"><img alt="Website" src="https://img.shields.io/badge/🌐-Website-darkred?style=flat-square"></a>
+          <img alt="Type: University" src="https://img.shields.io/badge/🏷️%20Type-University-1A3A6B?style=flat-square">
+          <img alt="Support: Infrastructure" src="https://img.shields.io/badge/🤝%20Support-Infrastructure-2E8B57?style=flat-square">
+        </div>
+        <br/>
+        <b>Key support</b>
+        <ul>
+          <li>Academic foundation and research infrastructure</li>
+          <li>Scientific training and supervision environment</li>
+        </ul>
+      </div>
+    </td>
+    <td width="50%" valign="top">
+      <div style="border: 1px solid #d0d7de; border-radius: 12px; padding: 16px;">
+        <div align="center">
+          <b>🏛️ Secretariat of Science, Humanities, Technology and Innovation(SECIHTI)</b><br/>
+          <sub> State Secretariat, Mexico</sub><br/><br/>
+          <a href="https://secihti.mx/"><img alt="Website" src="https://img.shields.io/badge/🌐-Website-darkgreen?style=flat-square"></a>
+          <img alt="Type: Government" src="https://img.shields.io/badge/🏷️%20Type-Government-2D6A4F?style=flat-square">
+          <img alt="Support: Funding and Innovation" src="https://img.shields.io/badge/🤝%20Support-Funding%20%26%20Innovation-40916C?style=flat-square">
+        </div>
+        <br/>
+        <b>Key support</b>
+        <ul>
+          <li>Support for science and technology initiatives</li>
+          <li>Funding and innovation promotion</li>
+        </ul>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <div style="border: 1px solid #d0d7de; border-radius: 12px; padding: 16px;">
+        <div align="center">
+          <b>🌿 Centre Internacional de Mètodes Numèrics en Enginyeria (CIMNE)</b><br/>
+          <sub>Industry, Spain</sub><br/><br/>
+          <a href="https://aulas.cimne.com/aula/aula-morelia/"><img alt="Website" src="https://img.shields.io/badge/🌐-Website-orange?style=flat-square"></a>
+          <img alt="Type: Research Center" src="https://img.shields.io/badge/🏷️%20Type-Research%20Center-EE9B00?style=flat-square">
+          <img alt="Support: Collaboration" src="https://img.shields.io/badge/🤝%20Support-Collaboration-CA6702?style=flat-square">
+        </div>
+        <br/>
+        <b>Key support</b>
+        <ul>
+          <li>International collaboration in numerical methods</li>
+          <li>Computational engineering research environment</li>
+        </ul>
+      </div>
+    </td>
+    <td width="50%" valign="top">
+      <div style="border: 1px solid #d0d7de; border-radius: 12px; padding: 16px;">
+        <div align="center">
+          <b>🏭 SIIIA MATH: Soluciones en Ingeniería</b><br/>
+          <sub>Industry, México</sub><br/><br/>
+          <a href="http://www.siiia.com.mx"><img alt="Website" src="https://img.shields.io/badge/🌐-Website-blue?style=flat-square"></a>
+          <img alt="Type: Industry Partner" src="https://img.shields.io/badge/🏷️%20Type-Industry%20Partner-0B1B3A?style=flat-square">
+          <img alt="Support: Technology Transfer" src="https://img.shields.io/badge/🤝%20Support-Technology%20Transfer-1D3557?style=flat-square">
+        </div>
+        <br/>
+        <b>Key support</b>
+        <ul>
+          <li>Industry-driven applied research and development</li>
+          <li>Technology transfer and practical engineering impact</li>
+        </ul>
+      </div>
+    </td>
+  </tr>
+</table>
+
+### :building_with_garden: Research Centers & Collaborations
+
+<div align="center">
+
+<table align="center" width="100%" cellspacing="14">
+  <tr>
+    <td width="50%" valign="top">
+      <div style="border: 1px solid #d0d7de; border-radius: 12px; padding: 16px;">
+        <div align="center">
+          <b>🌿 Aula CIMNE-Morelia</b><br/>
+          <sub>Research collaboration space</sub><br/><br/>
+          <a href="https://aulas.cimne.com/aula/aula-morelia/"><img alt="Website" src="https://img.shields.io/badge/🌐-Website-orange?style=flat-square"></a>
+          <img alt="Area: Numerical Methods" src="https://img.shields.io/badge/🧮%20Area-Numerical%20Methods-EE9B00?style=flat-square">
+          <img alt="Collaboration: Applied Computing" src="https://img.shields.io/badge/🤝%20Collaboration-Applied%20Computing-CA6702?style=flat-square">
+        </div>
+        <br/>
+        <b>Collaboration highlights</b>
+        <ul>
+          <li>Numerical methods and computational engineering environment</li>
+          <li>Academic–industry collaboration and training activities</li>
+        </ul>
+      </div>
+    </td>
+    <td width="50%" valign="top">
+      <div style="border: 1px solid #d0d7de; border-radius: 12px; padding: 16px;">
+        <div align="center">
+          <b>🎓 UMSNH</b><br/>
+          <sub>Academic collaboration</sub><br/><br/>
+          <a href="http://www.umich.mx"><img alt="Website" src="https://img.shields.io/badge/🌐-Website-darkred?style=flat-square"></a>
+          <img alt="Type: University" src="https://img.shields.io/badge/🏷️%20Type-University-1A3A6B?style=flat-square">
+          <img alt="Support: Research Infrastructure" src="https://img.shields.io/badge/🤝%20Support-Research%20Infrastructure-2E8B57?style=flat-square">
+        </div>
+        <br/>
+        <b>Collaboration highlights</b>
+        <ul>
+          <li>Institutional infrastructure supporting research and training</li>
+          <li>Graduate formation and supervision for scientific computing</li>
+        </ul>
+      </div>
+    </td>
+  </tr>
+</table>
+
+</div>
+
+### :computer: Technology Communities
+
+<div align="center">
+
+| :package: Framework | :busts_in_silhouette: Community | :star: Contribution |
+|:---:|:---:|:---:|
+| [![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-5C3EE8?style=flat-square&logo=opencv)](https://opencv.org/) | **OpenCV Community** | Computer vision and image processing |
+| [![Flask](https://img.shields.io/badge/Flask-Web%20Framework-000000?style=flat-square&logo=flask)](https://flask.palletsprojects.com/) | **Flask Development Team** | Web framework |
+| [![NumPy](https://img.shields.io/badge/NumPy-Scientific%20Computing-013243?style=flat-square&logo=numpy)](https://numpy.org/) | **NumPy Community** | Array computing foundation |
+| [![SciPy](https://img.shields.io/badge/SciPy-Scientific%20Computing-8CAAE6?style=flat-square&logo=scipy)](https://scipy.org/) | **SciPy Community** | Numerical algorithms |
+| [![Matplotlib](https://img.shields.io/badge/Matplotlib-Visualization-11557C?style=flat-square)](https://matplotlib.org/) | **Matplotlib Community** | Scientific visualization |
+| [![Shapely](https://img.shields.io/badge/Shapely-Geometry-2E8B57?style=flat-square)](https://shapely.readthedocs.io/) | **Shapely Development Team** | Computational geometry |
+
+</div>
 
 ---
 
 ## :email: Contact & Support
 
-### :busts_in_silhouette: Research Group Contact
+<div align="center">
 
-**Primary Contact:**
-- **Dr. Gerardo Tinoco Guerrero**
-  - :email: gerardo.tinoco@umich.mx
-  - :office: SIIIA MATH: Soluciones en ingeniería
-  - :classical_building: Universidad Michoacana de San Nicolás de Hidalgo
+*Contact channels, technical support, and collaboration opportunities*
 
-### :question: Technical Support
+[![Issues](https://img.shields.io/badge/🧩-GitHub%20Issues-24292f?style=flat-square&logo=github)](https://github.com/gstinoco/mGFD_EcoRisk_Simulator/issues)
+[![Email](https://img.shields.io/badge/📧-Email%20Support-blue?style=flat-square)](mailto:gerardo.tinoco@umich.mx)
 
-For technical questions and issues:
-1. **GitHub Issues**: Create an issue for bug reports or feature requests
-2. **Email Support**: Contact the research team directly for complex technical inquiries
-3. **Academic Collaboration**: Reach out for research partnerships and joint projects
+</div>
 
-### :globe_with_meridians: Institutional Affiliations
+<table align="center" width="100%" cellspacing="14">
+  <tr>
+    <td valign="top" style="border: 1px solid #d0d7de; border-radius: 12px; padding: 16px;">
+      <div align="center">
+        <b>Primary Contact</b><br/>
+        <sub>Research group coordination</sub>
+      </div>
+      <br/>
+      <b>Dr. Gerardo Tinoco Guerrero</b><br/>
+      <sub>Morelia, Michoacán, México</sub>
+      <br/><br/>
+      <div align="center">
+        <a href="mailto:gerardo.tinoco@umich.mx"><img alt="Email" src="https://img.shields.io/badge/📧-Email-blue?style=flat-square"></a>
+        <a href="http://www.siiia.com.mx"><img alt="Company: SIIIA MATH" src="https://img.shields.io/badge/🏢%20Company-SIIIA%20MATH-0B1B3A?style=flat-square"></a>
+        <a href="http://www.umich.mx"><img alt="University: UMSNH" src="https://img.shields.io/badge/🎓%20University-UMSNH-1A3A6B?style=flat-square"></a>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" style="border: 1px solid #d0d7de; border-radius: 12px; padding: 16px;">
+      <div align="center">
+        <b>Technical Support</b><br/>
+        <sub>Bug reports, questions, and collaboration requests</sub>
+      </div>
+      <br/>
+      <div align="center">
+        <a href="https://github.com/gstinoco/mGFD_EcoRisk_Simulator/issues"><img alt="Open an Issue" src="https://img.shields.io/badge/🧩-Open%20Issue-24292f?style=flat-square&logo=github"></a>
+        <a href="mailto:gerardo.tinoco@umich.mx"><img alt="Send Email" src="https://img.shields.io/badge/📧-Send%20Email-blue?style=flat-square"></a>
+        <a href="mailto:gerardo.tinoco@umich.mx?subject=mGFD%20CloudGenerator%20Collaboration"><img alt="Request Collaboration" src="https://img.shields.io/badge/🤝-Request%20Collaboration-2E8B57?style=flat-square"></a>
+      </div>
+      <br/>
+      <ul>
+        <li><b>Issues</b> for bugs and feature requests</li>
+        <li><b>Email</b> for technical inquiries</li>
+        <li><b>Collaboration</b> for partnerships and joint projects</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" style="border: 1px solid #d0d7de; border-radius: 12px; padding: 16px;">
+      <div align="center">
+        <b>Collaboration Opportunities</b><br/>
+        <sub>Research and engineering partnerships</sub>
+      </div>
+      <br/>
+      <table width="100%">
+        <tr>
+          <td width="50%"><b>🧮 Meshless Methods</b><br/><sub>mGFD discretizations, boundary handling, point cloud quality</sub></td>
+          <td width="50%"><b>📐 Computational Geometry</b><br/><sub>polygon processing, hole handling, robust point-in-region tests</sub></td>
+        </tr>
+        <tr>
+          <td width="50%"><b>🖼️ Computer Vision</b><br/><sub>segmentation workflows, contour extraction from images</sub></td>
+          <td width="50%"><b>🌐 Scientific Web Tools</b><br/><sub>reproducible preprocessing platforms for simulation pipelines</sub></td>
+        </tr>
+        <tr>
+          <td width="50%"><b>🌊 CFD / Engineering</b><br/><sub>node generation for complex domains and multi-region problems</sub></td>
+          <td width="50%"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" style="border: 1px solid #d0d7de; border-radius: 12px; padding: 16px;">
+      <div align="center">
+        <b>Student Opportunities</b><br/>
+        <sub>Projects and training in scientific computing</sub>
+      </div>
+      <br/>
+      <ul>
+        <li><b>Graduate Programs</b>: research opportunities with the team</li>
+        <li><b>Undergraduate Projects</b>: thesis topics in computational engineering</li>
+        <li><b>Internships</b>: scientific computing, numerical methods, and applied modeling</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" style="border: 1px solid #d0d7de; border-radius: 12px; padding: 16px;">
+      <div align="center">
+        <b>Institutional Affiliations</b>
+      </div>
+      <br/>
+      <div align="center">
+        <a href="http://www.siiia.com.mx"><img alt="SIIIA MATH" src="https://img.shields.io/badge/🏢-SIIIA%20MATH-0B1B3A?style=flat-square"></a>
+        <a href="http://www.umich.mx"><img alt="UMSNH" src="https://img.shields.io/badge/🎓-UMSNH-1A3A6B?style=flat-square"></a>
+        <img alt="Research Group" src="https://img.shields.io/badge/🔬-Numerical%20Methods%20%26%20Scientific%20Computing-555?style=flat-square">
+      </div>
+    </td>
+  </tr>
+</table>
 
-- **SIIIA MATH**: [Soluciones en ingeniería](http://www.siiia.com.mx)
-- **UMSNH**: [Universidad Michoacana de San Nicolás de Hidalgo](http://www.umich.mx)
+---
+
+## :speech_balloon: FAQ
+
+<details>
+  <summary><b>Which image formats are supported?</b></summary>
+  <br/>
+  PNG, JPG/JPEG, GIF, and BMP. Maximum request size is <b>16 MB</b>.
+</details>
+
+<details>
+  <summary><b>Where are outputs saved when running locally?</b></summary>
+  <br/>
+  Generated files are written to <code>output/</code>. Uploaded files are stored in <code>uploads/</code>. Both folders are created automatically on startup.
+</details>
+
+<details>
+  <summary><b>What is the expected CSV format for CloudGenerator?</b></summary>
+  <br/>
+  Contours: <code>x,y,region</code> (region is optional, but recommended for multi-region). Clouds: <code>x,y,region,classification</code>.
+</details>
+
+<details>
+  <summary><b>Can I use this in commercial projects?</b></summary>
+  <br/>
+  Yes. The project is released under the MIT License.
+</details>
+
+<details>
+  <summary><b>How should I cite this work?</b></summary>
+  <br/>
+  Use the BibTeX entry in the Citation section and the referenced DOI in Scientific References.
+</details>
 
 ---
 
 <div align="center">
 
-**:star: If this project helps your research, please consider giving it a star! :star:**
+*Advancing meshless methods through open-source collaboration*
 
-*Advancing environmental science through computational innovation*
+[![GitHub stars](https://img.shields.io/github/stars/gstinoco/mGFD_EcoRisk_Simulator?style=social)](https://github.com/gstinoco/mGFD_EcoRisk_Simulator/stargazers) [![GitHub forks](https://img.shields.io/github/forks/gstinoco/mGFD_EcoRisk_Simulator?style=social)](https://github.com/gstinoco/mGFD_EcoRisk_Simulator/network/members) [![GitHub watchers](https://img.shields.io/github/watchers/gstinoco/mGFD_EcoRisk_Simulator?style=social)](https://github.com/gstinoco/mGFD_EcoRisk_Simulator/watchers)
+
+<br/>
+
+<b>If this project helps your research, please consider giving it a star.</b>
 
 </div>

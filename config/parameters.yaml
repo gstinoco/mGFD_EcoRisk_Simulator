@@ -106,6 +106,14 @@ visualization:
   dpi: 300                              # Resolution for saved figures (dots per inch)
   contour_levels: 20                    # Number of contour levels for concentration plots
   
+  # Font size settings for plots
+  font_size:
+    title: 22                           # Font size for plot titles
+    label: 18                           # Font size for axis labels
+    tick: 16                            # Font size for tick labels
+    legend: 16                          # Font size for legends
+    annotation: 14                      # Font size for text annotations
+  
   # Animation settings for video generation
   animation:
     fps: 15                             # Frames per second for videos (higher = smoother but slower)

@@ -106,6 +106,27 @@ class ContaminantVisualizer:
         plt.style.use('seaborn-v0_8')
         sns.set_palette("husl")
         
+        # Configure font sizes from config
+        font_config = self.viz_config.get('font_size', {})
+        self.font_sizes = {
+            'title': font_config.get('title', 16),
+            'label': font_config.get('label', 14),
+            'tick': font_config.get('tick', 12),
+            'legend': font_config.get('legend', 12),
+            'annotation': font_config.get('annotation', 10)
+        }
+        
+        # Apply global font settings
+        plt.rcParams.update({
+            'font.size': self.font_sizes['tick'],
+            'axes.titlesize': self.font_sizes['title'],
+            'axes.labelsize': self.font_sizes['label'],
+            'xtick.labelsize': self.font_sizes['tick'],
+            'ytick.labelsize': self.font_sizes['tick'],
+            'legend.fontsize': self.font_sizes['legend'],
+            'figure.titlesize': self.font_sizes['title'] + 2
+        })
+        
         # Custom colors for risk levels
         self.risk_colors = {
             0: '#2E8B57',  # Green for low risk
@@ -151,7 +172,8 @@ class ContaminantVisualizer:
             height = bar.get_height()
             ax.text(bar.get_x() + bar.get_width()/2., height + std + 0.01,
                    f'{mean:.3f}±{std:.3f}',
-                   ha='center', va='bottom', fontweight='bold')
+                   ha='center', va='bottom', fontweight='bold', 
+                   fontsize=self.font_sizes['annotation'])
         
         ax.set_ylabel('Accuracy (Cross Validation)')
         ax.set_title('Machine Learning Models Comparison')
@@ -340,7 +362,8 @@ class ContaminantVisualizer:
         # Create figure with subplots - Using configuration parameters
         fig_width, fig_height = self.viz_config['figure_size']
         fig, axes = plt.subplots(2, 2, figsize=(fig_width * 1.25, fig_height * 1.5))
-        fig.suptitle('Machine Learning Models Metrics Dashboard', fontsize=16, fontweight='bold')
+        fig.suptitle('Machine Learning Models Metrics Dashboard', 
+                    fontsize=self.font_sizes['title'] + 2, fontweight='bold')
         
         # Colors for each model
         colors = sns.color_palette("husl", len(models))
@@ -359,7 +382,7 @@ class ContaminantVisualizer:
         for bar, acc in zip(bars1, accuracy_scores):
             height = bar.get_height()
             ax1.text(bar.get_x() + bar.get_width()/2., height + 0.02,
-                    f'{acc:.3f}', ha='center', va='bottom', fontsize=10)
+                    f'{acc:.3f}', ha='center', va='bottom', fontsize=self.font_sizes['annotation'])
         
         # Plot 2: Classification metrics (heatmap)
         ax2 = axes[0, 1]
@@ -406,11 +429,11 @@ class ContaminantVisualizer:
         for bar in bars1:
             height = bar.get_height()
             ax3.text(bar.get_x() + bar.get_width()/2., height + 0.01,
-                    f'{height:.3f}', ha='center', va='bottom', fontsize=8)
+                    f'{height:.3f}', ha='center', va='bottom', fontsize=self.font_sizes['annotation'] - 2)
         for bar in bars2:
             height = bar.get_height()
             ax3.text(bar.get_x() + bar.get_width()/2., height + 0.01,
-                    f'{height:.3f}', ha='center', va='bottom', fontsize=8)
+                    f'{height:.3f}', ha='center', va='bottom', fontsize=self.font_sizes['annotation'] - 2)
         
         # Plot 4: Metrics per class
         ax4 = axes[1, 1]
@@ -503,11 +526,11 @@ class ContaminantVisualizer:
             # Contour lines
             contour_lines = ax.contour(X, Y, concentration_history[frame_idx], 
                                      levels=10, colors='white', alpha=0.6, linewidths=0.5)
-            ax.clabel(contour_lines, inline=True, fontsize=8, fmt='%.3f')
+            ax.clabel(contour_lines, inline=True, fontsize=self.font_sizes['annotation'] - 2, fmt='%.3f')
             
             # Color bar
-            cbar = plt.colorbar(contour, ax=ax)
-            cbar.set_label('Concentration (mg/L)', rotation=270, labelpad=20)
+            #cbar = plt.colorbar(contour, ax=ax)
+            #cbar.set_label('Concentration (mg/L)', rotation=270, labelpad=20)
             
             # Configuration
             ax.set_xlabel('Distance X (m)')
@@ -564,11 +587,11 @@ class ContaminantVisualizer:
         # Contour lines
         contour_lines = ax.contour(X, Y, concentration, levels=10, 
                                  colors='white', alpha=0.6, linewidths=0.5)
-        ax.clabel(contour_lines, inline=True, fontsize=8, fmt='%.3f')
+        ax.clabel(contour_lines, inline=True, fontsize=self.font_sizes['annotation'] - 2, fmt='%.3f')
         
         # Color bar
-        cbar = plt.colorbar(contour, ax=ax)
-        cbar.set_label('Concentration (mg/L)', rotation=270, labelpad=20)
+        #cbar = plt.colorbar(contour, ax=ax)
+        #cbar.set_label('Concentration (mg/L)', rotation=270, labelpad=20)
         
         # Configuration
         ax.set_xlabel('Distance X (m)')
@@ -653,9 +676,9 @@ class ContaminantVisualizer:
             # Using aspect='auto' for proper river visualization (200m x 10m)
             
             # Custom color bar
-            cbar = plt.colorbar(im, ax=ax, ticks=[0, 1, 2])
-            cbar.set_ticklabels(['Low', 'Medium', 'High'])
-            cbar.set_label('Risk Level', rotation=270, labelpad=20)
+            #cbar = plt.colorbar(im, ax=ax, ticks=[0, 1, 2])
+            #cbar.set_ticklabels(['Low', 'Medium', 'High'])
+            #cbar.set_label('Risk Level', rotation=270, labelpad=20)
             
             # Configuration
             ax.set_xlabel('Distance X (m)')
