@@ -554,7 +554,7 @@ Reference results (files in `data/results/`):
 ### :bug: Bug Reports
 1. **Search existing issues**: Check if the bug has already been reported
 2. **Create a detailed report**: Include steps to reproduce and expected vs actual behavior
-3. **Provide context**: Operating system, Python version, browser, and relevant parameters (image size, regions, method)
+3. **Provide context**: Operating system, Python version, executed command, scenario name, and relevant configuration parameters
 
 ### :bulb: Feature Requests
 1. **Describe the feature**: Clear and concise description of the proposed functionality
@@ -847,9 +847,9 @@ git checkout -b feature/your-feature-name
 
 ### :trophy: Project Highlights
 
-- **Contour-to-cloud pipeline**: interactive image-based contour extraction and multi-region management
-- **Cloud generation methods**: Regular (grid-like) and Natural (Poisson disk sampling) distributions
-- **Region-aware analysis**: neighbor computation constrained by region labels for disconnected domains and holes
+- **Scenario-driven simulation**: predefined combinations of flow, discharge, and source position for reproducible experiments
+- **Hybrid workflow**: concentration fields are transformed into feature matrices for ecological risk classification
+- **Decision-support outputs**: per-scenario histories, trained models, comparative metrics, and risk visualizations
 
 ---
 
@@ -858,8 +858,8 @@ git checkout -b feature/your-feature-name
 If you use this software in your research, please cite:
 
 ```bibtex
-@software{tinoco2025mGFD_cloudgenerator,
-  title={mGFD CloudGenerator 2.0: Web platform for generating 2D unstructured point clouds},
+@software{tinoco2025mgfd_ecorisk_simulator,
+  title={mGFD EcoRisk Simulator: Hybrid methodology for numerical simulation and ecological risk classification},
   author={Tinoco-Guerrero, Gerardo and 
           Domínguez-Mota, Francisco Javier and 
           Guzmán-Torres, José Alberto and
@@ -868,8 +868,7 @@ If you use this software in your research, please cite:
   institution={Universidad Michoacana de San Nicolás de Hidalgo},
   organization={SIIIA MATH: Soluciones en ingeniería},
   url={https://github.com/gstinoco/mGFD_EcoRisk_Simulator},
-  version={2.0},
-  note={Web-based preprocessing tool for meshless mGFD workflows: image-to-contour extraction, multi-region handling, point-cloud generation (regular/Poisson), node classification, and region-constrained neighbor analysis}
+  note={Software repository for 2D advection-diffusion simulation, scenario-based dataset generation, and machine-learning-based ecological risk classification in water bodies}
 }
 ```
 
@@ -1043,12 +1042,12 @@ SOFTWARE.
 
 | :package: Framework | :busts_in_silhouette: Community | :star: Contribution |
 |:---:|:---:|:---:|
-| [![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-5C3EE8?style=flat-square&logo=opencv)](https://opencv.org/) | **OpenCV Community** | Computer vision and image processing |
-| [![Flask](https://img.shields.io/badge/Flask-Web%20Framework-000000?style=flat-square&logo=flask)](https://flask.palletsprojects.com/) | **Flask Development Team** | Web framework |
+| [![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-150458?style=flat-square&logo=pandas)](https://pandas.pydata.org/) | **Pandas Community** | Tabular preprocessing and dataset handling |
 | [![NumPy](https://img.shields.io/badge/NumPy-Scientific%20Computing-013243?style=flat-square&logo=numpy)](https://numpy.org/) | **NumPy Community** | Array computing foundation |
 | [![SciPy](https://img.shields.io/badge/SciPy-Scientific%20Computing-8CAAE6?style=flat-square&logo=scipy)](https://scipy.org/) | **SciPy Community** | Numerical algorithms |
+| [![Scikit-learn](https://img.shields.io/badge/Scikit--learn-Machine%20Learning-F7931E?style=flat-square&logo=scikitlearn)](https://scikit-learn.org/) | **Scikit-learn Community** | Risk classification and model selection |
 | [![Matplotlib](https://img.shields.io/badge/Matplotlib-Visualization-11557C?style=flat-square)](https://matplotlib.org/) | **Matplotlib Community** | Scientific visualization |
-| [![Shapely](https://img.shields.io/badge/Shapely-Geometry-2E8B57?style=flat-square)](https://shapely.readthedocs.io/) | **Shapely Development Team** | Computational geometry |
+| [![Seaborn](https://img.shields.io/badge/Seaborn-Statistical%20Plots-4C72B0?style=flat-square)](https://seaborn.pydata.org/) | **Seaborn Community** | Statistical graphics and model comparison |
 
 </div>
 
@@ -1093,7 +1092,7 @@ SOFTWARE.
       <div align="center">
         <a href="https://github.com/gstinoco/mGFD_EcoRisk_Simulator/issues"><img alt="Open an Issue" src="https://img.shields.io/badge/🧩-Open%20Issue-24292f?style=flat-square&logo=github"></a>
         <a href="mailto:gerardo.tinoco@umich.mx"><img alt="Send Email" src="https://img.shields.io/badge/📧-Send%20Email-blue?style=flat-square"></a>
-        <a href="mailto:gerardo.tinoco@umich.mx?subject=mGFD%20CloudGenerator%20Collaboration"><img alt="Request Collaboration" src="https://img.shields.io/badge/🤝-Request%20Collaboration-2E8B57?style=flat-square"></a>
+        <a href="mailto:gerardo.tinoco@umich.mx?subject=mGFD%20EcoRisk%20Simulator%20Collaboration"><img alt="Request Collaboration" src="https://img.shields.io/badge/🤝-Request%20Collaboration-2E8B57?style=flat-square"></a>
       </div>
       <br/>
       <ul>
@@ -1112,15 +1111,15 @@ SOFTWARE.
       <br/>
       <table width="100%">
         <tr>
-          <td width="50%"><b>🧮 Meshless Methods</b><br/><sub>mGFD discretizations, boundary handling, point cloud quality</sub></td>
-          <td width="50%"><b>📐 Computational Geometry</b><br/><sub>polygon processing, hole handling, robust point-in-region tests</sub></td>
+          <td width="50%"><b>🧮 Numerical Methods</b><br/><sub>advection-diffusion solvers, stability criteria, and boundary-condition treatment</sub></td>
+          <td width="50%"><b>🌿 Environmental Modeling</b><br/><sub>contaminant transport, decay processes, and scenario-based water-quality analysis</sub></td>
         </tr>
         <tr>
-          <td width="50%"><b>🖼️ Computer Vision</b><br/><sub>segmentation workflows, contour extraction from images</sub></td>
-          <td width="50%"><b>🌐 Scientific Web Tools</b><br/><sub>reproducible preprocessing platforms for simulation pipelines</sub></td>
+          <td width="50%"><b>🤖 Machine Learning</b><br/><sub>feature engineering, risk classification, and comparative model evaluation</sub></td>
+          <td width="50%"><b>📊 Scientific Workflows</b><br/><sub>reproducible preprocessing, benchmarking, and visualization pipelines</sub></td>
         </tr>
         <tr>
-          <td width="50%"><b>🌊 CFD / Engineering</b><br/><sub>node generation for complex domains and multi-region problems</sub></td>
+          <td width="50%"><b>🌊 CFD / Water Quality</b><br/><sub>transport analysis, sensitivity studies, and ecological decision-support applications</sub></td>
           <td width="50%"></td>
         </tr>
       </table>
@@ -1160,21 +1159,21 @@ SOFTWARE.
 ## :speech_balloon: FAQ
 
 <details>
-  <summary><b>Which image formats are supported?</b></summary>
+  <summary><b>Which outputs are generated by the simulator?</b></summary>
   <br/>
-  PNG, JPG/JPEG, GIF, and BMP. Maximum request size is <b>16 MB</b>.
+  The project generates per-scenario simulation files (NPY/CSV), processed datasets, trained models, metrics reports, and visualization assets such as dashboards, snapshots, and GIFs.
 </details>
 
 <details>
   <summary><b>Where are outputs saved when running locally?</b></summary>
   <br/>
-  Generated files are written to <code>output/</code>. Uploaded files are stored in <code>uploads/</code>. Both folders are created automatically on startup.
+  Scenario outputs are written to <code>data/simulations/</code>, processed matrices to <code>data/processed/</code>, trained models and reports to <code>data/results/</code>, and figures/GIFs to <code>data/visualizations/</code> or <code>docs/</code>.
 </details>
 
 <details>
-  <summary><b>What is the expected CSV format for CloudGenerator?</b></summary>
+  <summary><b>How are risk labels assigned?</b></summary>
   <br/>
-  Contours: <code>x,y,region</code> (region is optional, but recommended for multi-region). Clouds: <code>x,y,region,classification</code>.
+  Risk labels are derived from concentration thresholds defined in <code>config/parameters.yaml</code> under <code>risk_thresholds</code>. By default, the workflow maps concentrations to Low, Medium, and High ecological risk levels.
 </details>
 
 <details>
@@ -1193,7 +1192,7 @@ SOFTWARE.
 
 <div align="center">
 
-*Advancing meshless methods through open-source collaboration*
+*Advancing ecological risk modeling through open-source collaboration*
 
 [![GitHub stars](https://img.shields.io/github/stars/gstinoco/mGFD_EcoRisk_Simulator?style=social)](https://github.com/gstinoco/mGFD_EcoRisk_Simulator/stargazers) [![GitHub forks](https://img.shields.io/github/forks/gstinoco/mGFD_EcoRisk_Simulator?style=social)](https://github.com/gstinoco/mGFD_EcoRisk_Simulator/network/members) [![GitHub watchers](https://img.shields.io/github/watchers/gstinoco/mGFD_EcoRisk_Simulator?style=social)](https://github.com/gstinoco/mGFD_EcoRisk_Simulator/watchers)
 
